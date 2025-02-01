@@ -1,5 +1,5 @@
 import { useState } from "react";
-import marked from "marked";
+import { marked } from "marked";
 
 export default function Home() {
     const [type, setType] = useState("product");
@@ -18,7 +18,13 @@ export default function Home() {
         const response = await fetch("/api/generate", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ type, product_name: productName, product_description: productDescription, word_count: wordCount, temperature }),
+            body: JSON.stringify({
+                type,
+                product_name: productName,
+                product_description: productDescription,
+                word_count: wordCount,
+                temperature
+            })
         });
 
         const data = await response.json();
