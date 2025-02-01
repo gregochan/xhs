@@ -9,12 +9,16 @@ export default function Home() {
     const [wordCount, setWordCount] = useState(130);
     const [temperature, setTemperature] = useState(0.6);
     const [output, setOutput] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const generateCopy = async () => {
         if (!productName || !productDescription) {
             alert("请填写所有字段！");
             return;
         }
+
+        setLoading(true);
+        setOutput(""); // Clear previous output
 
         const response = await fetch("/api/generate", {
             method: "POST",
@@ -35,6 +39,7 @@ export default function Home() {
         formattedText = formattedText.replace(/<think>(.*?)<\/think>/g, '<span class="think-style">$1</span>');
 
         setOutput(marked.parse(formattedText));
+        setLoading(false);
     };
 
     return (
@@ -62,10 +67,13 @@ export default function Home() {
                     <input type="range" className={styles.slider} min="0.1" max="1.0" step="0.05" value={temperature} onChange={(e) => setTemperature(e.target.value)} />
                     <span className={styles.tempValue}> {temperature} </span>
                     <br /><br />
-                    <button className={styles.button} onClick={generateCopy}>生成文案</button>
+                    <button className={styles.button} onClick={generateCopy} disabled={loading}>
+                        {loading ? "生成中..." : "生成文案"}
+                    </button>
                 </div>
                 <div className={styles.outputSection}>
                     <h3 className={styles.subtitle}>生成的文案：</h3>
+                    {loading ? <div className={styles.loadingBar}></div> : null}
                     <div className={styles.output} dangerouslySetInnerHTML={{ __html: output }}></div>
                 </div>
             </div>
