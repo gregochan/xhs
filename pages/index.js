@@ -40,29 +40,35 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>小红书文案生成器</h2>
-            <label className={styles.radioLabel}>
-                <input type="radio" name="type" value="product" checked={type === "product"} onChange={() => setType("product")} /> 产品文案
-            </label>
-            <label className={styles.radioLabel}>
-                <input type="radio" name="type" value="event" checked={type === "event"} onChange={() => setType("event")} /> 活动物案
-            </label>
-            <br /><br />
-            <label className={styles.label}>产品/活动名称：</label>
-            <input type="text" className={styles.input} value={productName} onChange={(e) => setProductName(e.target.value)} placeholder="请输入名称" />
-            <br /><br />
-            <label className={styles.label}>产品/活动描述：</label>
-            <textarea className={styles.textarea} value={productDescription} onChange={(e) => setProductDescription(e.target.value)} rows="4" placeholder="请输入描述"></textarea>
-            <br /><br />
-            <label className={styles.label}>字数要求：</label>
-            <input type="number" className={styles.input} min="130" max="300" value={wordCount} onChange={(e) => setWordCount(e.target.value)} />
-            <br /><br />
-            <label className={styles.label}>温度 (Temperature)：</label>
-            <input type="range" className={styles.slider} min="0.1" max="1.0" step="0.05" value={temperature} onChange={(e) => setTemperature(e.target.value)} />
-            <span className={styles.tempValue}> {temperature} </span>
-            <br /><br />
-            <button className={styles.button} onClick={generateCopy}>生成文案</button>
-            <h3 className={styles.subtitle}>生成的文案：</h3>
-            <div className={styles.output} dangerouslySetInnerHTML={{ __html: output }}></div>
+            <div className={styles.flexContainer}>
+                <div className={styles.inputSection}>
+                    <label className={styles.radioLabel}>
+                        <input type="radio" name="type" value="product" checked={type === "product"} onChange={() => setType("product")} /> 产品文案
+                    </label>
+                    <label className={styles.radioLabel}>
+                        <input type="radio" name="type" value="event" checked={type === "event"} onChange={() => setType("event")} /> 活动物案
+                    </label>
+                    <br /><br />
+                    <label className={styles.label}>产品/活动名称：</label>
+                    <input type="text" className={styles.input} value={productName} onChange={(e) => setProductName(e.target.value)} placeholder="请输入名称" />
+                    <br /><br />
+                    <label className={styles.label}>产品/活动描述：</label>
+                    <textarea className={styles.textarea} value={productDescription} onChange={(e) => setProductDescription(e.target.value)} rows="4" placeholder="请输入描述"></textarea>
+                    <br /><br />
+                    <label className={styles.label}>字数要求：</label>
+                    <input type="number" className={styles.input} min="130" max="300" value={wordCount} onChange={(e) => setWordCount(e.target.value)} />
+                    <br /><br />
+                    <label className={styles.label}>温度 (Temperature)：</label>
+                    <input type="range" className={styles.slider} min="0.1" max="1.0" step="0.05" value={temperature} onChange={(e) => setTemperature(e.target.value)} />
+                    <span className={styles.tempValue}> {temperature} </span>
+                    <br /><br />
+                    <button className={styles.button} onClick={generateCopy}>生成文案</button>
+                </div>
+                <div className={styles.outputSection}>
+                    <h3 className={styles.subtitle}>生成的文案：</h3>
+                    <div className={styles.output} dangerouslySetInnerHTML={{ __html: output }}></div>
+                </div>
+            </div>
         </div>
     );
 }
